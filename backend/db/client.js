@@ -7,7 +7,7 @@ const getDbClientAndConnect = async () => {
     password: process.env.PGPASSWORD,
     database: process.env.PGDATABASE,
     port: process.env.PGPORT
-  })
+  });
   client.connect();
   return client;
 };

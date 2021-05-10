@@ -1,0 +1,7 @@
+node_modules/
+
+# frontend (elm) stuff
+# elm-package generated files
+frontend/elm-stuff
+# elm-repl generated files
+frontend/repl-temp-*

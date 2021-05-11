@@ -1,15 +1,12 @@
-const { Client } = require('pg');
+const knex = require('knex');
 
 const getDbClientAndConnect = async () => {
-  const client = await new Client({
-    user: process.env.PGUSER,
-    host: process.env.PGHOST,
-    password: process.env.PGPASSWORD,
-    database: process.env.PGDATABASE,
-    port: process.env.PGPORT
+  const dbClient = knex({
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
+    searchPath: ['knex', 'public']
   });
-  client.connect();
-  return client;
+  return dbClient;
 };
 
 module.exports = {

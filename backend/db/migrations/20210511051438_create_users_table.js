@@ -3,7 +3,7 @@ exports.up = function (knex) {
     id UUID NOT NULL,
     username CHAR(128),
     email CHAR(128),
-    password CHAR(68),
+    password CHAR(128),
     CONSTRAINT users_pkey PRIMARY KEY(id)
    ) 
    WITH (oids = false);`);

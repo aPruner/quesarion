@@ -1,11 +1,8 @@
-const knex = require('knex');
+const environment = process.env.NODE_ENV || 'development';
+const knexConfig = require('../../knexfile')[environment];
 
 const getDbClientAndConnect = async () => {
-  const dbClient = knex({
-    client: 'pg',
-    connection: process.env.DATABASE_URL,
-    searchPath: ['knex', 'public']
-  });
+  const dbClient = require('knex')(knexConfig);
   return dbClient;
 };
 

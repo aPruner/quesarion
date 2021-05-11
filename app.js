@@ -22,6 +22,8 @@ getDbClientAndConnect().then((dbClient) => {
   app.get('/query', handlers.createQueryHandler(dbClient));
 
   app.listen(process.env.PORT || port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
+    console.log(
+      `Quesarion backend server listening at http://localhost:${port}`
+    );
   });
 });

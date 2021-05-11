@@ -1,5 +1,5 @@
 const doSimpleQuery = async (dbClient) => {
-  return dbClient.query('SELECT NOW()');
+  return dbClient.raw('SELECT NOW()');
 };
 
 module.exports = {

@@ -13,4 +13,6 @@ module.exports = {
       directory: 'backend/db/migrations'
     }
   }
+
+  // TODO: Prod environment stuff
 };

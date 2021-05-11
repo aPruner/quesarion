@@ -4,7 +4,9 @@
   "description": "online RPG game",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate-up": "knex migrate:latest",
+    "migrate-down": "knex migrate:rollback"
   },
   "repository": {
     "type": "git",

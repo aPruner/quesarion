@@ -1,6 +1,4 @@
 const { v4: uuidv4 } = require('uuid');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 
 const {
   beginTransaction,
@@ -9,7 +7,7 @@ const {
 } = require('./db/queries');
 const { hashPassword } = require('./auth');
 
-const createLoginHandler = () => {
+const createLoginHandler = (passport) => {
   return passport.authenticate('local', {}, (req, res) => {
     if (req.body.remember) {
       // The cookie will expire after 30 days

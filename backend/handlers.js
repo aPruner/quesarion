@@ -50,7 +50,6 @@ const createSignupHandler = (dbClient) => {
           [uuidv4(), req.body.username, req.body.email, hashedPassword]
         );
         await commitTransaction(dbClient);
-        console.log('NEW USER INSERTED INTO DB SUCCESS');
         res.status(200);
         res.send({ message: 'NEW USER INSERTED INTO DB SUCCESS' });
       }

@@ -1,12 +1,25 @@
 const { v4: uuidv4 } = require('uuid');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
-const { beginTransaction, doSimpleQuery } = require('./db/queries');
+const {
+  beginTransaction,
+  commitTransaction,
+  doSimpleQuery
+} = require('./db/queries');
 const { hashPassword } = require('./auth');
 
 const createLoginHandler = () => {
-  return (req, res) => {
-    res.send({ message: 'log in!' });
-  };
+  return passport.authenticate('local', {}, (req, res) => {
+    if (req.body.remember) {
+      // The cookie will expire after 30 days
+      req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
+    } else {
+      // The cookie will expire at the end of the session
+      req.session.cookie.expires = false;
+    }
+    res.send({ message: 'Youre now logged in!' });
+  });
 };
 
 const createQueryHandler = (dbClient) => {
@@ -22,26 +35,30 @@ const createQueryHandler = (dbClient) => {
 const createSignupHandler = (dbClient) => {
   return async (req, res) => {
     try {
-      beginTransaction(dbClient);
-      const hashedPassword = hashPassword(req.body.password, 5);
+      await beginTransaction(dbClient);
+      const hashedPassword = await hashPassword(req.body.password, 5);
       const selectUsersQueryRes = await dbClient.raw(
-        'SELECT id FROM "users" WHERE "email"=$1',
+        'SELECT id FROM "users" WHERE "email" = ?',
         [req.body.email]
       );
       if (selectUsersQueryRes.rows[0]) {
         res.status(400);
-        return { message: 'Sorry, this user is signed up already!' };
+        res.send({ message: 'Sorry, this user is signed up already!' });
+        return;
       } else {
-        const insertNewUserQueryRes = dbClient.raw(
-          'INSERT INTO users (id, username, email, password) VALUES ($1, $2, $3, $4, $5)',
+        await dbClient.raw(
+          'INSERT INTO users (id, username, email, password) VALUES (?, ?, ?, ?)',
           [uuidv4(), req.body.username, req.body.email, hashedPassword]
         );
-        console.log('NEW USER INSERTED INTO DB SUCCESS', insertNewUserQueryRes);
+        await commitTransaction(dbClient);
+        console.log('NEW USER INSERTED INTO DB SUCCESS');
         res.status(200);
-        return;
+        res.send({ message: 'NEW USER INSERTED INTO DB SUCCESS' });
       }
     } catch (e) {
       console.log(e);
+      res.status(500);
+      res.send({ errorMessage: e });
       throw e;
     }
   };

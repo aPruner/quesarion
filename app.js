@@ -19,8 +19,10 @@ getDbClientAndConnect().then((dbClient) => {
   app.use(expressSession);
   app.use(passport.initialize());
   app.use(passport.session());
-  app.get('/login', handlers.createLoginHandler());
   app.get('/query', handlers.createQueryHandler(dbClient));
+
+  // Auth handlers
+  app.post('/login', handlers.createLoginHandler());
   app.post('/signup', handlers.createSignupHandler(dbClient));
 
   app.listen(process.env.PORT || port, () => {

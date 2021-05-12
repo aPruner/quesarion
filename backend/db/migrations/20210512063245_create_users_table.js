@@ -1,9 +1,9 @@
 exports.up = function (knex) {
   return knex.raw(`CREATE TABLE public.users (
     id UUID NOT NULL,
-    username CHAR(128),
-    email CHAR(128),
-    password CHAR(128),
+    username VARCHAR(128),
+    email VARCHAR(128),
+    password VARCHAR(128),
     CONSTRAINT users_pkey PRIMARY KEY(id)
    ) 
    WITH (oids = false);`);

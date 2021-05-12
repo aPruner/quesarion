@@ -35,10 +35,16 @@ const usePassportLocalStrategy = (passport, dbClient) => {
               });
             } else {
               const hashedPasswordFromDb = accountDataQueryRes.rows[0].password;
+              console.log(
+                'logging passwords: ',
+                hashedPasswordFromDb,
+                password
+              );
               const passwordIsCorrect = await comparePassword(
                 password,
                 hashedPasswordFromDb
               );
+              console.log('is password correct: ', passwordIsCorrect);
               if (passwordIsCorrect) {
                 console.log('PASSWORDS MATCH');
                 return done(null, [

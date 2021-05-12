@@ -35,7 +35,7 @@ const createSignupHandler = (dbClient) => {
   return async (req, res) => {
     try {
       await beginTransaction(dbClient);
-      const hashedPassword = await hashPassword(req.body.password, 5);
+      const hashedPassword = await hashPassword(req.body.password, 10);
       const selectUsersQueryRes = await dbClient.raw(
         'SELECT id FROM "users" WHERE "email" = ?',
         [req.body.email]

@@ -31,7 +31,7 @@ const usePassportLocalStrategy = (passport, dbClient) => {
             ) {
               console.log('EMAIL IS INCORRECT');
               return done(null, false, {
-                message: 'Incorrect email or password'
+                message: 'Incorrect email or password.'
               });
             } else {
               const hashedPasswordFromDb = accountDataQueryRes.rows[0].password;
@@ -50,7 +50,7 @@ const usePassportLocalStrategy = (passport, dbClient) => {
               } else {
                 console.log('PASSWORD IS INCORRECT');
                 return done(null, false, {
-                  message: 'Incorrect email or password'
+                  message: 'Incorrect email or password.'
                 });
               }
             }

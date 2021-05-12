@@ -42,7 +42,7 @@ const createSignupHandler = (dbClient) => {
       );
       if (selectUsersQueryRes.rows[0]) {
         res.status(400);
-        res.send({ message: 'Sorry, this user is signed up already!' });
+        res.send({ message: 'Sorry, this user is signed up already.' });
         return;
       } else {
         await dbClient.raw(
@@ -51,7 +51,7 @@ const createSignupHandler = (dbClient) => {
         );
         await commitTransaction(dbClient);
         res.status(200);
-        res.send({ message: 'NEW USER INSERTED INTO DB SUCCESS' });
+        res.send({ message: 'Sign up successful. User has been created.' });
       }
     } catch (e) {
       console.log(e);

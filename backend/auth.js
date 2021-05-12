@@ -16,26 +16,31 @@ const usePassportLocalStrategy = (passport, dbClient) => {
   passport.use(
     'local',
     new LocalStrategy(
-      { passReqToCallback: true },
+      { passReqToCallback: true, usernameField: 'email' },
       (req, email, password, done) => {
         const loginAttempt = async () => {
           try {
             await beginTransaction(dbClient);
             const accountDataQueryRes = await dbClient.raw(
-              'SELECT id, "firstName", "email", "password" FROM "users" WHERE "email"=$1',
+              'SELECT id, "username", "email", "password" FROM "users" WHERE "email"=?',
               [email]
             );
             if (
               accountDataQueryRes.rows.length === 0 ||
               !accountDataQueryRes.rows[0]
             ) {
-              console.log('EMAIL DOESNT EXIST');
+              console.log('EMAIL IS INCORRECT');
               return done(null, false, {
                 message: 'Incorrect email or password'
               });
             } else {
               const hashedPasswordFromDb = accountDataQueryRes.rows[0].password;
-              if (await comparePassword(password, hashedPasswordFromDb)) {
+              const passwordIsCorrect = await comparePassword(
+                password,
+                hashedPasswordFromDb
+              );
+              if (passwordIsCorrect) {
+                console.log('PASSWORDS MATCH');
                 return done(null, [
                   {
                     email: accountDataQueryRes.rows[0].email,
@@ -43,7 +48,7 @@ const usePassportLocalStrategy = (passport, dbClient) => {
                   }
                 ]);
               } else {
-                console.log('PASSWORD DOESNT EXIST');
+                console.log('PASSWORD IS INCORRECT');
                 return done(null, false, {
                   message: 'Incorrect email or password'
                 });
@@ -58,6 +63,14 @@ const usePassportLocalStrategy = (passport, dbClient) => {
       }
     )
   );
+
+  passport.serializeUser(function (user, done) {
+    done(null, user);
+  });
+
+  passport.deserializeUser(function (user, done) {
+    done(null, user);
+  });
 };
 
 module.exports = {

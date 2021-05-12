@@ -7,8 +7,8 @@ const {
 } = require('./db/queries');
 const { hashPassword } = require('./auth');
 
-const createLoginHandler = (passport) => {
-  return passport.authenticate('local', {}, (req, res) => {
+const createLoginHandler = () => {
+  return (req, res) => {
     if (req.body.remember) {
       // The cookie will expire after 30 days
       req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
@@ -16,8 +16,9 @@ const createLoginHandler = (passport) => {
       // The cookie will expire at the end of the session
       req.session.cookie.expires = false;
     }
+    res.status(200);
     res.send({ message: 'Youre now logged in!' });
-  });
+  };
 };
 
 const createQueryHandler = (dbClient) => {

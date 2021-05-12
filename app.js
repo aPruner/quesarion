@@ -23,8 +23,12 @@ getDbClientAndConnect().then((dbClient) => {
 
   // Auth handlers
   app.post('/signup', handlers.createSignupHandler(dbClient));
-  usePassportLocalStrategy(passport);
-  app.post('/login', handlers.createLoginHandler(passport));
+  usePassportLocalStrategy(passport, dbClient);
+  app.post(
+    '/login',
+    passport.authenticate('local', {}),
+    handlers.createLoginHandler(passport)
+  );
 
   app.listen(process.env.PORT || port, () => {
     console.log(

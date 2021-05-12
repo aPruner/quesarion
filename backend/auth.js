@@ -22,6 +22,7 @@ const usePassportLocalStrategy = (passport, dbClient) => {
           try {
             await beginTransaction(dbClient);
             const accountDataQueryRes = await dbClient.raw(
+              // TODO: Move queries out into queries file
               'SELECT id, "username", "email", "password" FROM "users" WHERE "email"=?',
               [email]
             );

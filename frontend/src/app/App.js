@@ -1,27 +1,24 @@
 import React from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
   Route
 } from 'react-router-dom';
-import { ThemeProvider } from 'theme-ui';
 import Navbar from '../components/Navbar';
 import Routes from './Routes';
 
-import theme from './Theme';
 import Home from '../views/Home';
+import Login from '../views/Login';
+import Signup from '../views/Signup';
 
 export default function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <Router>
         <Navbar />
-        <Switch>
-          <Route path={Routes.home}>
-            <Home />
-          </Route>
-        </Switch>
+        <Route path={Routes.home} exact component={Home}/>
+        <Route path={Routes.login} component={Login}/>
+        <Route path={Routes.signup} component={Signup} />
       </Router>
-    </ThemeProvider>
+    </>
   );
 }

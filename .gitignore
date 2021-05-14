@@ -1,8 +1,9 @@
+# backend stuff
 node_modules/
 .env
 
-# frontend (elm) stuff
-# elm-package generated files
-frontend/elm-stuff
-# elm-repl generated files
-frontend/repl-temp-*
+# frontend stuff
+.vscode
+frontend/node_modules/
+frontend/dist/
+frontend/.cache/

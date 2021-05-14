@@ -10,6 +10,8 @@ import Home from '../views/Home';
 import Login from '../views/Login';
 import Signup from '../views/Signup';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 export default function App() {
   return (
     <>

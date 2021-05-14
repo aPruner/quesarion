@@ -18,6 +18,10 @@
   "dependencies": {
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "src": "^1.1.2"
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "rebass": "^4.0.7",
+    "src": "^1.1.2",
+    "theme-ui": "^0.8.4"
   }
 }

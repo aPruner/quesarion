@@ -5,7 +5,7 @@ export default {
   },
   login: {
     path: '/login',
-    linkText: 'Login'
+    linkText: 'Log in'
   },
   signup: {
     path: '/signup',

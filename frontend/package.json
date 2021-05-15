@@ -16,13 +16,17 @@
     "parcel-bundler": "^1.12.5"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.14.2",
     "bootstrap": "^4.6.0",
+    "core-js": "^3.12.1",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.0",
+    "react-bootstrap-icons": "^1.5.0",
     "react-dom": "^16.14.0",
     "react-jss": "^10.6.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
+    "regenerator-runtime": "^0.13.7",
     "src": "^1.1.2"
   }
 }

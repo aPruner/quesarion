@@ -17,9 +17,9 @@ export default function App() {
     <>
       <Router>
         <Navbar />
-        <Route path={Routes.home} exact component={Home}/>
-        <Route path={Routes.login} component={Login}/>
-        <Route path={Routes.signup} component={Signup} />
+        <Route path={Routes.home.path} exact component={Home}/>
+        <Route path={Routes.login.path} component={Login}/>
+        <Route path={Routes.signup.path} component={Signup} />
       </Router>
     </>
   );

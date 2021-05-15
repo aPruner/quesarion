@@ -1,9 +1,28 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
+import { createUseStyles } from 'react-jss';
 import Routes from '../app/Routes';
 
+const useStyles = createUseStyles({
+  navLinkContainer: {
+    margin: '0 10px 0'
+  }
+});
+
 export default function NavBar() {
+  const classes = useStyles();
+  const navLinks = Object.keys(Routes).map(routeKey => {
+    const {
+      path,
+      linkText
+    } = Routes[routeKey];
+    return (
+      <Nav className={classes.navLinkContainer} key={linkText}>
+        <NavLink to={path}>{linkText}</NavLink>
+      </Nav>
+    );
+  });
 
   return (
     <Navbar bg="light" expand="lg">
@@ -11,15 +30,7 @@ export default function NavBar() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
-          <Nav.Link>
-            <NavLink to={Routes.home}>Home</NavLink>
-          </Nav.Link>
-          <Nav.Link>
-            <NavLink to={Routes.login}>Login</NavLink>
-          </Nav.Link>
-          <Nav.Link>
-            <NavLink to={Routes.signup}>Signup</NavLink>
-          </Nav.Link>
+          {navLinks}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

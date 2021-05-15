@@ -40,10 +40,10 @@ export default function Login() {
   return (
     <Container className={classes.loginContainer}>
       <h1>Log in</h1>
-      <label>Username</label>
+      <label>Email</label>
       <InputGroup className={classes.loginInputGroup}>
         <FormControl
-          placeholder='e.g: TheLegend27'
+          placeholder='e.g: thelegend27@gmail.com'
           onChange={handleChangeUsername}
         />
       </InputGroup>

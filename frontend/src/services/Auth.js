@@ -1,5 +1,5 @@
 export async function sendLoginRequest(username, password) {
-  const response = fetch('http://localhost:3001/login', {
+  const response = fetch('/api/login', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -7,12 +7,13 @@ export async function sendLoginRequest(username, password) {
     },
     body: JSON.stringify({username, password})
   });
+  console.log(response);
   const body = await response.json();
   console.log(body);
 }
 
 export async function sendSignupRequest(username, password, email) {
-  const response = fetch('http://localhost:3001/signup', {
+  const response = fetch('/api/signup', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
